@@ -1,6 +1,7 @@
 # lambda-mini
 
-Low-dependency AWS lambda function framework for mini-services
+Low-dependency AWS lambda function framework for mini-services.
+
 It is an alternative to https://github.com/dougmoscrop/serverless-http
 
 Features
