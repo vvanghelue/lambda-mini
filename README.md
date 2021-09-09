@@ -23,7 +23,7 @@ app.GET("/api/pets", function ({ event, context }) {
   }
 })
 
-exports.handler = app.handler(event)
+exports.handler = app.handler
 ```
 
 ## use middlware callbacks
