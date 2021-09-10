@@ -1,20 +1,23 @@
 # lambda-mini
 
-Low-dependency AWS lambda function framework for mini-services.
+Low-dependency, low-code AWS lambda function framework for mini-services
 
 It is an alternative to https://github.com/dougmoscrop/serverless-http
 
 Features
- - ✅ Routing
- - ✅ Middlewares
 
-## simple
+- ✅ Routing
+- ✅ Middlewares
+
+## Example : simple
+
 ```javascript
 const mini = require("lambda-mini")
 
 const app = mini()
 
-app.GET("/api/pets", function ({ event, context }) {
+app.GET("/api/pets/:type/age/:age", function ({ event, context, params }) {
+  // ...do something with params.type, params.age
   return {
     statusCode: "200",
     body: {
@@ -26,7 +29,8 @@ app.GET("/api/pets", function ({ event, context }) {
 exports.handler = app.handler
 ```
 
-## use middlware callbacks
+## Example : middlware callbacks
+
 ```javascript
 function myAuthenticationMiddleware({ event, context }) {
   // my auth logic ...
@@ -59,7 +63,8 @@ app.GET(
 )
 ```
 
-## use global middlwares
+## Example : use global middlwares
+
 ```javascript
 app.addMiddleware(myAuthenticationMiddleware)
 app.addMiddleware(myBusinessLogic1)

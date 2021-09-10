@@ -27,6 +27,19 @@ describe("Router", function () {
     const output = await app.handler(event)
     assert.notEqual(output, "hello")
   })
+
+  it("Match params", async function () {
+    const app = mini()
+    app.GET("/pets/:type/age/:age", ({ params }) => {
+      return params
+    })
+    const event = {
+      path: "/pets/dogs/age/3",
+      httpMethod: "GET",
+    }
+    const output = await app.handler(event)
+    assert.deepEqual(output, { type: "dogs", age: "3" })
+  })
 })
 
 describe("Middlewares", function () {

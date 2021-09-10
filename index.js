@@ -4,19 +4,14 @@ module.exports = function () {
   const routes = []
   const middlewares = []
 
-  function handler(event) {
+  async function handler(event) {
     for (const route of routes) {
       if (route.method === event.httpMethod) {
         const match = routeParser(route.route).match(event.path)
         if (match) {
-          for (const middleware of middlewares) {
-            const output = middleware({ event, context })
-            if (output) {
-              return output
-            }
-          }
-          for (const callback of route.callbacks) {
-            const output = callback({ event, context })
+          const callbacksChain = middlewares.concat(route.callbacks)
+          for (const callback of callbacksChain) {
+            const output = await callback({ event, context, params: match })
             if (output) {
               return output
             }
